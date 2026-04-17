@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light only" />
+<title>DAEDUCK AI Portal</title>
+<style>
+  :root {
+    color-scheme: light only;
+    --toss-blue: #3182F6;
+    --toss-blue-hover: #1B64DA;
+    --toss-blue-light: #E8F2FF;
+    --daeduck-navy: #1B3A8A;
+    --daeduck-navy-dark: #112766;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F9FAFB;
+    --bg-tertiary: #F2F4F6;
+    --text-primary: #191F28;
+    --text-secondary: #4E5968;
+    --text-tertiary: #8B95A1;
+    --border-color: #E5E8EB;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-search: 0 1px 6px rgba(32, 33, 36, 0.18);
+    --shadow-search-hover: 0 2px 8px rgba(32, 33, 36, 0.24);
+    --sidebar-width: 320px;
+    --nav-height: 64px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #FFFFFF;
+    color: #191F28;
+  }
+
+  body {
+    font-family: 'Pretendard Variable', Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ===== Top Nav ===== */
+  .topnav {
+    height: var(--nav-height);
+    min-height: var(--nav-height);
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    flex-shrink: 0;
+    z-index: 50;
+  }
+
+  .topnav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background 0.12s ease;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+
+  .topnav-logo:hover {
+    background: var(--bg-tertiary);
+  }
+
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--daeduck-navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--daeduck-navy);
+    letter-spacing: 0.5px;
+  }
+
+  .topnav-tabs {
+    display: flex;
+    gap: 4px;
+    margin-left: 32px;
+  }
+
+  .nav-tab {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.12s ease;
+  }
+
+  .nav-tab:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  .nav-tab.active {
+    background: var(--toss-blue-light);
+    color: var(--toss-blue);
+  }
+
+  .topnav-spacer { flex: 1; }
+
+  .topnav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ===== View Container ===== */
+  .views {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .view {
+    position: absolute;
+    inset: 0;
+    display: none;
+  }
+
+  .view.active { display: flex; }
+
+  /* ===== Home View ===== */
+  .home {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  .home-inner {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 80px;
+  }
+
+  .home-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .home-logo-mark {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: var(--daeduck-navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -1px;
+    box-shadow: 0 8px 20px rgba(27, 58, 138, 0.25);
+  }
+
+  .home-logo-text {
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--daeduck-navy);
+    letter-spacing: 1px;
+  }
+
+  .home-tagline {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .home-search {
+    width: 100%;
+    max-width: 580px;
+    position: relative;
+  }
+
+  .home-search-input {
+    width: 100%;
+    height: 52px;
+    padding: 0 56px 0 52px;
+    border: 1px solid var(--border-color);
+    border-radius: 26px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-search);
+    transition: all 0.15s ease;
+  }
+
+  .home-search-input::placeholder { color: var(--text-tertiary); }
+
+  .home-search-input:hover {
+    box-shadow: var(--shadow-search-hover);
+    border-color: var(--border-color);
+  }
+
+  .home-search-input:focus {
+    outline: none;
+    border-color: var(--toss-blue);
+    box-shadow: 0 0 0 4px rgba(49, 130, 246, 0.12);
+  }
+
+  .home-search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    pointer-events: none;
+  }
+
+  .home-search-clear {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-search-clear:hover { background: var(--bg-tertiary); }
+  .home-search-clear.visible { display: flex; }
+
+  /* Search results dropdown */
+  .home-search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: none;
+    max-height: 360px;
+    overflow-y: auto;
+    z-index: 20;
+  }
+
+  .home-search-results.visible { display: block; }
+
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    transition: background 0.1s ease;
+  }
+
+  .search-result-item:hover { background: var(--bg-secondary); }
+
+  .home-quick {
+    margin-top: 36px;
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .home-quick-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    padding: 0 4px;
+  }
+
+  .home-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .quick-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: inherit;
+  }
+
+  .quick-card:hover {
+    border-color: var(--toss-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .quick-card-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .quick-card-info { min-width: 0; flex: 1; }
+
+  .quick-card-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .quick-card-desc {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ===== Agent View ===== */
+  .agent-view { flex-direction: row; }
+
+  .sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .sidebar-header {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .sidebar-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    margin-bottom: 14px;
+  }
+
+  .search-box { position: relative; }
+
+  .search-box input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px 0 40px;
+    background: var(--bg-tertiary);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: all 0.15s ease;
+  }
+
+  .search-box input::placeholder { color: var(--text-tertiary); }
+
+  .search-box input:focus {
+    outline: none;
+    background: var(--bg-primary);
+    border-color: var(--toss-blue);
+  }
+
+  .search-box svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    pointer-events: none;
+  }
+
+  /* ===== Category Filter ===== */
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 20px 0;
+  }
+
+  .cat-chip {
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    white-space: nowrap;
+  }
+
+  .cat-chip:hover {
+    border-color: var(--toss-blue);
+    color: var(--toss-blue);
+    background: var(--toss-blue-light);
+  }
+
+  .cat-chip.active {
+    border-color: var(--toss-blue);
+    background: var(--toss-blue);
+    color: white;
+  }
+
+  .agent-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+  }
+
+  .agent-list::-webkit-scrollbar { width: 6px; }
+  .agent-list::-webkit-scrollbar-track { background: transparent; }
+  .agent-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+
+  .category { margin-bottom: 16px; }
+
+  .category-title {
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .agent-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    margin-bottom: 2px;
+  }
+
+  .agent-item:hover { background: var(--bg-tertiary); }
+
+  .agent-item.active { background: var(--toss-blue-light); }
+
+  .agent-item.active .agent-name {
+    color: var(--toss-blue);
+    font-weight: 700;
+  }
+
+  .agent-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    background: var(--bg-tertiary);
+  }
+
+  .icon-blue { background: #E8F2FF; color: #3182F6; }
+  .icon-purple { background: #F3E8FF; color: #8B5CF6; }
+  .icon-green { background: #E6F9F0; color: #10B981; }
+  .icon-orange { background: #FFF1E5; color: #F97316; }
+  .icon-pink { background: #FFE8F0; color: #EC4899; }
+  .icon-teal { background: #E0F7F5; color: #14B8A6; }
+  .icon-red { background: #FFEAEA; color: #EF4444; }
+  .icon-indigo { background: #E8EAFF; color: #6366F1; }
+
+  .agent-info { flex: 1; min-width: 0; }
+
+  .agent-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.2px;
+  }
+
+  .agent-desc {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .agent-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: var(--toss-blue);
+    color: white;
+    letter-spacing: 0.3px;
+  }
+
+  /* ===== Like Button ===== */
+  .like-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .like-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+    transition: background 0.12s ease;
+    position: relative;
+  }
+
+  .like-btn:hover { background: #FFEAEA; }
+
+  .like-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .like-btn .heart-outline {
+    stroke: var(--text-tertiary);
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .like-btn .heart-filled {
+    stroke: none;
+    fill: #FF3040;
+    display: none;
+  }
+
+  .like-btn.liked .heart-outline { display: none; }
+  .like-btn.liked .heart-filled { display: block; }
+
+  .like-btn.liked svg {
+    animation: heartPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes heartPop {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.35); }
+    60% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
+
+  .like-btn.liked::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 48, 64, 0.15);
+    animation: heartRing 0.4s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes heartRing {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  .like-count {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    line-height: 1;
+    transition: color 0.15s ease;
+  }
+
+  .like-count.liked { color: #FF3040; }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-tertiary);
+    font-size: 13px;
+  }
+
+  /* ===== Agent Tooltip ===== */
+  .agent-tooltip {
+    position: fixed;
+    width: 280px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+    padding: 16px;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-8px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .agent-tooltip.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .agent-tooltip::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 22px;
+    width: 12px;
+    height: 12px;
+    background: var(--bg-primary);
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    transform: rotate(45deg);
+  }
+
+  .tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .tooltip-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .tooltip-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+    line-height: 1.3;
+  }
+
+  .tooltip-badge {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--toss-blue);
+    color: white;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+  }
+
+  .tooltip-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .tooltip-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .tooltip-meta svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
+  .tooltip-url {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tooltip-hint {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tooltip-hint kbd {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    font-family: inherit;
+  }
+
+  .agent-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    min-width: 0;
+  }
+
+  .agent-header {
+    height: 56px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    flex-shrink: 0;
+  }
+
+  .agent-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .agent-main-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .agent-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .agent-meta {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+  }
+
+  .actions { display: flex; gap: 6px; }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: background 0.12s ease;
+  }
+
+  .icon-btn:hover { background: var(--bg-tertiary); }
+
+  .iframe-container {
+    flex: 1;
+    position: relative;
+    background: var(--bg-secondary);
+    overflow: hidden;
+  }
+
+  .iframe-wrapper {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+  }
+
+  .iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .agent-empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    gap: 12px;
+  }
+
+  .agent-empty-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .agent-empty-text {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* Loading */
+  .loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .loading-overlay.active { opacity: 1; pointer-events: all; }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--bg-tertiary);
+    border-top-color: var(--toss-blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== Admin Tab (hidden by default) ===== */
+  .nav-tab.admin-only { display: none; }
+  .nav-tab.admin-only.visible { display: flex; }
+
+  /* ===== Admin Login Modal ===== */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--bg-primary);
+    border-radius: 20px;
+    padding: 32px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.16);
+    text-align: center;
+  }
+
+  .modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--toss-blue-light);
+    color: var(--toss-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 16px;
+  }
+
+  .modal h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .modal p {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+  }
+
+  .modal input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text-primary);
+    text-align: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: border 0.15s ease;
+  }
+
+  .modal input::placeholder { color: var(--text-tertiary); letter-spacing: 0; font-weight: 400; }
+  .modal input:focus { outline: none; border-color: var(--toss-blue); }
+
+  .modal-error {
+    font-size: 12px;
+    color: #EF4444;
+    margin-top: 8px;
+    min-height: 18px;
+  }
+
+  .modal-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .modal-btn {
+    flex: 1;
+    height: 44px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: background 0.12s ease;
+  }
+
+  .modal-btn.secondary { background: var(--bg-tertiary); color: var(--text-secondary); }
+  .modal-btn.secondary:hover { background: var(--border-color); }
+  .modal-btn.primary { background: var(--toss-blue); color: white; }
+  .modal-btn.primary:hover { background: var(--toss-blue-hover); }
+
+  /* ===== Admin View ===== */
+  .admin {
+    flex-direction: column;
+    background: var(--bg-secondary);
+    overflow-y: auto;
+    padding: 32px;
+  }
+
+  .admin-container {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .admin-header-section {
+    margin-bottom: 28px;
+  }
+
+  .admin-page-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+  }
+
+  .admin-page-desc {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+  }
+
+  /* Stat Cards */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -1px;
+  }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+  }
+
+  /* Section */
+  .admin-section {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .admin-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .admin-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+
+  .admin-section-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+  }
+
+  /* Ranking */
+  .ranking-list { padding: 8px 12px; }
+
+  .ranking-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    transition: background 0.1s ease;
+  }
+
+  .ranking-item:hover { background: var(--bg-secondary); }
+
+  .ranking-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+
+  .ranking-num.top1 { background: #FFFBE5; color: #F59E0B; }
+  .ranking-num.top2 { background: var(--bg-tertiary); color: var(--text-secondary); }
+  .ranking-num.top3 { background: #FFF1E5; color: #F97316; }
+
+  .ranking-agent { flex: 1; min-width: 0; }
+
+  .ranking-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .ranking-cat {
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  .ranking-bar-wrap {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ranking-bar {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--bg-tertiary);
+    overflow: hidden;
+  }
+
+  .ranking-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--toss-blue);
+    transition: width 0.4s ease;
+  }
+
+  .ranking-count {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    min-width: 24px;
+    text-align: right;
+  }
+
+  /* Log Table */
+  .log-table-wrap {
+    overflow-x: auto;
+  }
+
+  .log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .log-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+  }
+
+  .log-table td {
+    padding: 10px 16px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  .log-table tr:last-child td { border-bottom: none; }
+
+  .log-table tr:hover td { background: var(--bg-secondary); }
+
+  .log-action {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .log-action.open { background: #E8F2FF; color: #3182F6; }
+  .log-action.like { background: #FFEAEA; color: #EF4444; }
+  .log-action.unlike { background: var(--bg-tertiary); color: var(--text-tertiary); }
+
+  .log-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-tertiary);
+    font-size: 13px;
+  }
+
+  .log-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .log-page-btn {
+    height: 32px;
+    min-width: 32px;
+    padding: 0 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-family: inherit;
+  }
+
+  .log-page-btn:hover { background: var(--bg-tertiary); }
+  .log-page-btn.active { background: var(--toss-blue); color: white; border-color: var(--toss-blue); }
+  .log-page-btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* Mobile */
+  .menu-toggle { display: none; }
+
+  @media (max-width: 600px) {
+    :root { --sidebar-width: 280px; }
+    .topnav { padding: 0 16px; }
+    .topnav-tabs { margin-left: 12px; }
+    .nav-tab { padding: 0 10px; font-size: 13px; }
+    .user-chip .user-name { display: none; }
+    .user-chip { padding: 4px; }
+    .home-logo-text { font-size: 32px; }
+    .home-logo-mark { width: 52px; height: 52px; font-size: 22px; }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: var(--nav-height);
+      bottom: 0;
+      z-index: 100;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      box-shadow: var(--shadow-lg);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .menu-toggle { display: flex; }
+    .backdrop {
+      position: fixed;
+      inset: var(--nav-height) 0 0 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .backdrop.active { opacity: 1; pointer-events: all; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Top Nav -->
+  <nav class="topnav">
+    <button class="topnav-logo" id="logoBtn" aria-label="홈으로">
+      <!-- 실제 로고 이미지로 교체하려면 아래 두 div를 <img src="logo.png" height="28" /> 로 바꾸세요 -->
+      <div class="logo-mark">AI</div>
+      <div class="logo-text">DAEDUCK AI Portal</div>
+    </button>
+    <div class="topnav-tabs" id="topnavTabs">
+      <button class="nav-tab active" data-view="home">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        홈
+      </button>
+      <button class="nav-tab" data-view="agent">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+          <circle cx="12" cy="5" r="2"></circle>
+          <path d="M12 7v4"></path>
+          <line x1="8" y1="16" x2="8" y2="16"></line>
+          <line x1="16" y1="16" x2="16" y2="16"></line>
+        </svg>
+        AI Agent
+      </button>
+      <button class="nav-tab admin-only" data-view="admin" id="adminTab">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20V10"></path>
+          <path d="M18 20V4"></path>
+          <path d="M6 20v-4"></path>
+        </svg>
+        관리
+      </button>
+    </div>
+    <div class="topnav-spacer"></div>
+    <div class="topnav-right"></div>
+  </nav>
+
+
+  <div class="views">
+    <!-- Home View -->
+    <section class="view home active" id="homeView">
+      <div class="home-inner">
+        <div class="home-logo">
+          <!-- 실제 로고 이미지로 교체하려면 아래 두 div를 <img src="logo.png" height="64" /> 로 바꾸세요 -->
+          <div class="home-logo-mark">AI</div>
+          <div class="home-logo-text">DAEDUCK AI Portal</div>
+        </div>
+        <div class="home-tagline">사내 AI Agent를 한 곳에서 검색하고 사용하세요</div>
+        <div class="home-search">
+          <svg class="home-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="homeSearchInput" class="home-search-input" placeholder="원하는 AI Agent를 검색하세요" autocomplete="off" />
+          <button class="home-search-clear" id="homeSearchClear" aria-label="지우기">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <div class="home-search-results" id="homeSearchResults"></div>
+        </div>
+        <div class="home-quick">
+          <div class="home-quick-title">자주 쓰는 Agent</div>
+          <div class="home-quick-grid" id="homeQuickGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin View -->
+    <section class="view admin" id="adminView">
+      <div class="admin-container">
+        <div class="admin-header-section">
+          <div class="admin-page-title">관리 대시보드</div>
+          <div class="admin-page-desc">AI Agent 사용 현황과 로그를 확인할 수 있습니다</div>
+        </div>
+        <div class="stat-grid" id="statGrid"></div>
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <div class="admin-section-title">인기 Agent 순위</div>
+            <div class="admin-section-badge" id="rankingBadge">전체</div>
+          </div>
+          <div class="ranking-list" id="rankingList"></div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <div class="admin-section-title">활동 로그</div>
+            <div class="admin-section-badge" id="logCountBadge">0건</div>
+          </div>
+          <div class="log-table-wrap">
+            <table class="log-table">
+              <thead>
+                <tr>
+                  <th>시간</th>
+                  <th>사번</th>
+                  <th>Agent</th>
+                  <th>액션</th>
+                </tr>
+              </thead>
+              <tbody id="logTableBody"></tbody>
+            </table>
+          </div>
+          <div class="log-pagination" id="logPagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agent View -->
+    <section class="view agent-view" id="agentView">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">AI Agent</div>
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="searchInput" placeholder="검색" />
+          </div>
+        </div>
+        <div class="category-filters" id="categoryFilters"></div>
+        <div class="agent-list" id="agentList"></div>
+      </aside>
+      <div class="backdrop" id="backdrop"></div>
+      <div class="agent-tooltip" id="agentTooltip"></div>
+      <div class="agent-main">
+        <header class="agent-header">
+          <div class="agent-title-wrap">
+            <button class="icon-btn menu-toggle" id="menuToggle" aria-label="메뉴">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+            <div class="agent-main-icon" id="agentMainIcon" style="display:none;"></div>
+            <div>
+              <div class="agent-title" id="agentTitle">에이전트를 선택하세요</div>
+              <div class="agent-meta" id="agentMeta">왼쪽 목록에서 원하는 AI Agent를 선택하세요</div>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="icon-btn" id="refreshBtn" aria-label="새로고침" title="새로고침" style="display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+            </button>
+            <button class="icon-btn" id="openNewBtn" aria-label="새 창에서 열기" title="새 창에서 열기" style="display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="iframe-container">
+          <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+          </div>
+          <div class="iframe-wrapper" id="iframeWrapper">
+            <div class="agent-empty">
+              <div class="agent-empty-icon">✨</div>
+              <div class="agent-empty-text">왼쪽에서 AI Agent를 선택해주세요</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  // ===== AI Agent 데이터 =====
+  // 여기에 실제 AI Agent 정보를 등록하세요.
+  const agents = [
+    {
+      category: "업무 자동화",
+      items: [
+        { id: "copilot-main", name: "Microsoft Copilot", desc: "문서 작성 및 요약 지원", tooltip: "Microsoft 365와 연동되는 범용 AI 어시스턴트입니다. Word, Excel, PowerPoint, Outlook 작업을 자연어로 지시할 수 있고, 긴 문서 요약과 초안 작성에 활용하세요.", icon: "🤖", color: "blue", url: "https://copilot.microsoft.com/", featured: true },
+        { id: "email-helper", name: "이메일 작성 도우미", desc: "비즈니스 이메일 자동 작성", tooltip: "수신자, 주제, 톤만 입력하면 비즈니스 이메일 초안을 작성해 줍니다. 답장, 사과문, 요청 메일 등 다양한 템플릿을 지원합니다.", icon: "✉️", color: "indigo", url: "https://copilot.microsoft.com/", badge: "NEW", featured: true },
+        { id: "meeting-summary", name: "회의록 요약 AI", desc: "회의 내용 자동 요약", tooltip: "회의 녹음 또는 텍스트를 업로드하면 핵심 안건, 결정사항, 액션 아이템을 정리해 줍니다.", icon: "📝", color: "purple", url: "https://copilot.microsoft.com/" },
+      ],
+    },
+    {
+      category: "개발 지원",
+      items: [
+        { id: "code-review", name: "코드 리뷰 AI", desc: "PR 자동 리뷰 에이전트", tooltip: "Pull Request에 자동으로 코드 리뷰를 남깁니다. 스타일, 잠재 버그, 성능 이슈를 검출하고 개선안을 제안합니다.", icon: "💻", color: "green", url: "https://copilot.microsoft.com/", featured: true },
+        { id: "bug-finder", name: "버그 분석기", desc: "로그 기반 버그 원인 분석", tooltip: "에러 로그나 스택 트레이스를 입력하면 가능한 원인을 분석하고 수정 방법을 제시합니다.", icon: "🐛", color: "red", url: "https://copilot.microsoft.com/" },
+      ],
+    },
+    {
+      category: "데이터 분석",
+      items: [
+        { id: "data-insight", name: "데이터 인사이트", desc: "자연어로 데이터 질의", tooltip: "사내 데이터베이스에 자연어로 질문하면 SQL을 생성해 결과를 보여줍니다. 차트와 인사이트도 함께 제공합니다.", icon: "📊", color: "teal", url: "https://copilot.microsoft.com/", featured: true },
+        { id: "report-gen", name: "리포트 생성기", desc: "자동 보고서 작성", tooltip: "주간/월간 데이터를 기반으로 임원 보고용 리포트를 자동 생성합니다. PPT, PDF, Word 형식을 지원합니다.", icon: "📈", color: "orange", url: "https://copilot.microsoft.com/", badge: "HOT" },
+      ],
+    },
+    {
+      category: "HR / 지원",
+      items: [
+        { id: "hr-assistant", name: "HR 챗봇", desc: "사내 규정 및 복지 안내", tooltip: "휴가, 복지, 근태, 규정 관련 질문에 24시간 답변합니다. HR팀 문의 전 먼저 확인해 보세요.", icon: "👥", color: "pink", url: "https://copilot.microsoft.com/" },
+        { id: "it-helpdesk", name: "IT 헬프데스크", desc: "IT 이슈 자동 상담", tooltip: "노트북, 네트워크, 사내 시스템 문제를 1차 진단합니다. 해결 안 되는 경우 IT팀으로 자동 티켓을 생성합니다.", icon: "🛠️", color: "blue", url: "https://copilot.microsoft.com/" },
+      ],
+    },
+  ];
+
+  // ===== 관리자 사번 설정 =====
+  // 아래 배열에 관리자 사번을 추가/제거하세요.
+  const ADMIN_IDS = ["e230091", "admin", "E230091"];
+
+  // ===== 상태 =====
+  let currentAgentId = null;
+  let currentView = "home";
+  let currentCategory = null; // null = 전체
+  let isAdmin = false;
+  let loggedInId = "";
+
+  // ===== 활동 로그 =====
+  function loadLogs() {
+    try { return JSON.parse(localStorage.getItem("agent_logs") || "[]"); } catch { return []; }
+  }
+  function saveLogs(logs) { localStorage.setItem("agent_logs", JSON.stringify(logs)); }
+  function addLog(action, agentId, agentName) {
+    const logs = loadLogs();
+    logs.unshift({
+      ts: new Date().toISOString(),
+      user: loggedInId || "anonymous",
+      agentId,
+      agentName,
+      action,
+    });
+    // 최대 500건 유지
+    if (logs.length > 500) logs.length = 500;
+    saveLogs(logs);
+  }
+
+  // ===== 좋아요 상태 (localStorage 저장) =====
+  function loadLikes() {
+    try { return JSON.parse(localStorage.getItem("agent_likes") || "{}"); } catch { return {}; }
+  }
+  function saveLikes(data) { localStorage.setItem("agent_likes", JSON.stringify(data)); }
+  function loadMyLikes() {
+    try { return JSON.parse(localStorage.getItem("agent_my_likes") || "{}"); } catch { return {}; }
+  }
+  function saveMyLikes(data) { localStorage.setItem("agent_my_likes", JSON.stringify(data)); }
+
+  function toggleLike(agentId) {
+    const likes = loadLikes();
+    const myLikes = loadMyLikes();
+    if (myLikes[agentId]) {
+      // unlike
+      delete myLikes[agentId];
+      likes[agentId] = Math.max(0, (likes[agentId] || 1) - 1);
+    } else {
+      // like
+      myLikes[agentId] = true;
+      likes[agentId] = (likes[agentId] || 0) + 1;
+    }
+    saveLikes(likes);
+    saveMyLikes(myLikes);
+    const agent = findAgent(agentId);
+    addLog(myLikes[agentId] ? "like" : "unlike", agentId, agent?.name || agentId);
+    return { count: likes[agentId] || 0, liked: !!myLikes[agentId] };
+  }
+
+  // ===== 열어본 에이전트 (NEW 배지 제거용) =====
+  function loadSeen() {
+    try { return JSON.parse(localStorage.getItem("agent_seen") || "{}"); } catch { return {}; }
+  }
+  function markSeen(agentId) {
+    const seen = loadSeen();
+    seen[agentId] = true;
+    localStorage.setItem("agent_seen", JSON.stringify(seen));
+  }
+  // 페이지 로드 시 이미 본 에이전트의 badge 제거
+  (function clearSeenBadges() {
+    const seen = loadSeen();
+    agents.forEach((cat) => {
+      cat.items.forEach((a) => { if (seen[a.id]) a.badge = null; });
+    });
+  })();
+
+  function getLikeState(agentId) {
+    const likes = loadLikes();
+    const myLikes = loadMyLikes();
+    return { count: likes[agentId] || 0, liked: !!myLikes[agentId] };
+  }
+
+  // ===== DOM =====
+  const homeView = document.getElementById("homeView");
+  const agentView = document.getElementById("agentView");
+  const navTabs = document.querySelectorAll(".nav-tab");
+  const logoBtn = document.getElementById("logoBtn");
+
+  const homeSearchInput = document.getElementById("homeSearchInput");
+  const homeSearchClear = document.getElementById("homeSearchClear");
+  const homeSearchResults = document.getElementById("homeSearchResults");
+  const homeQuickGrid = document.getElementById("homeQuickGrid");
+
+  const agentListEl = document.getElementById("agentList");
+  const categoryFilters = document.getElementById("categoryFilters");
+  const searchInput = document.getElementById("searchInput");
+  const agentTitle = document.getElementById("agentTitle");
+  const agentMeta = document.getElementById("agentMeta");
+  const agentMainIcon = document.getElementById("agentMainIcon");
+  const iframeWrapper = document.getElementById("iframeWrapper");
+  const loadingOverlay = document.getElementById("loadingOverlay");
+  const refreshBtn = document.getElementById("refreshBtn");
+  const openNewBtn = document.getElementById("openNewBtn");
+  const menuToggle = document.getElementById("menuToggle");
+  const sidebar = document.getElementById("sidebar");
+  const backdrop = document.getElementById("backdrop");
+  const agentTooltip = document.getElementById("agentTooltip");
+  const adminView = document.getElementById("adminView");
+  const adminTab = document.getElementById("adminTab");
+
+  // ===== 관리자 인증 (쿼리스트링 ?id= 기반) =====
+  // 사용법: http://localhost:8000?id=E230091
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramId = urlParams.get("id") || "";
+  if (paramId) loggedInId = paramId;
+
+  function checkAdmin(id) { return ADMIN_IDS.map((x) => x.toLowerCase()).includes(id.toLowerCase()); }
+
+  if (loggedInId && checkAdmin(loggedInId)) {
+    isAdmin = true;
+    adminTab.classList.add("visible");
+  }
+
+  // ===== 뷰 전환 =====
+  function switchView(view) {
+    if (view === "admin" && !isAdmin) return;
+    currentView = view;
+    homeView.classList.toggle("active", view === "home");
+    agentView.classList.toggle("active", view === "agent");
+    adminView.classList.toggle("active", view === "admin");
+    navTabs.forEach((t) => t.classList.toggle("active", t.dataset.view === view));
+    if (view === "home") {
+      history.replaceState(null, "", "#home");
+    } else if (view === "agent" && !currentAgentId) {
+      history.replaceState(null, "", "#agent");
+    } else if (view === "admin") {
+      history.replaceState(null, "", "#admin");
+      renderAdminDashboard();
+    }
+  }
+
+  navTabs.forEach((tab) => {
+    tab.addEventListener("click", () => switchView(tab.dataset.view));
+  });
+  logoBtn.addEventListener("click", () => switchView("home"));
+
+  // ===== 관리 대시보드 렌더링 =====
+  let logPage = 0;
+  const LOG_PAGE_SIZE = 15;
+
+  function renderAdminDashboard() {
+    if (!isAdmin) return;
+    const logs = loadLogs();
+    const likes = loadLikes();
+    const allAgents = getAllAgents();
+
+    // 통계 카드
+    const totalOpens = logs.filter((l) => l.action === "open").length;
+    const totalLikes = Object.values(likes).reduce((s, v) => s + v, 0);
+    const uniqueUsers = [...new Set(logs.map((l) => l.user))].length;
+    const today = new Date().toISOString().slice(0, 10);
+    const todayOpens = logs.filter((l) => l.action === "open" && l.ts.startsWith(today)).length;
+
+    document.getElementById("statGrid").innerHTML = `
+      <div class="stat-card">
+        <div class="stat-label">전체 사용 횟수</div>
+        <div class="stat-value">${totalOpens.toLocaleString()}</div>
+        <div class="stat-sub">에이전트 실행 기준</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">오늘 사용</div>
+        <div class="stat-value">${todayOpens.toLocaleString()}</div>
+        <div class="stat-sub">${today}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">전체 좋아요</div>
+        <div class="stat-value">${totalLikes.toLocaleString()}</div>
+        <div class="stat-sub">${allAgents.length}개 Agent 대상</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">사용자 수</div>
+        <div class="stat-value">${uniqueUsers.toLocaleString()}</div>
+        <div class="stat-sub">고유 사번 기준</div>
+      </div>
+    `;
+
+    // 인기 순위 (실행 횟수 기준)
+    const openCounts = {};
+    logs.filter((l) => l.action === "open").forEach((l) => {
+      openCounts[l.agentId] = (openCounts[l.agentId] || 0) + 1;
+    });
+    const ranked = allAgents
+      .map((a) => ({
+        ...a,
+        opens: openCounts[a.id] || 0,
+        likeCnt: likes[a.id] || 0,
+        catName: agents.find((c) => c.items.some((i) => i.id === a.id))?.category || "",
+      }))
+      .sort((a, b) => b.opens - a.opens);
+    const maxOpens = ranked[0]?.opens || 1;
+
+    document.getElementById("rankingBadge").textContent = ranked.length + "개 Agent";
+    document.getElementById("rankingList").innerHTML = ranked
+      .map((a, i) => `
+        <div class="ranking-item">
+          <div class="ranking-num ${i === 0 ? "top1" : i === 1 ? "top2" : i === 2 ? "top3" : ""}">${i + 1}</div>
+          <div class="agent-icon icon-${a.color}" style="width:32px;height:32px;min-width:32px;border-radius:8px;font-size:14px;">${a.icon}</div>
+          <div class="ranking-agent">
+            <div class="ranking-name">${escapeHtml(a.name)}</div>
+            <div class="ranking-cat">${escapeHtml(a.catName)} · ♥ ${a.likeCnt}</div>
+          </div>
+          <div class="ranking-bar-wrap">
+            <div class="ranking-bar"><div class="ranking-bar-fill" style="width:${(a.opens / maxOpens * 100).toFixed(0)}%"></div></div>
+            <div class="ranking-count">${a.opens}</div>
+          </div>
+        </div>
+      `).join("");
+
+    // 로그 테이블
+    renderLogTable(logs);
+  }
+
+  function renderLogTable(logs) {
+    const total = logs.length;
+    document.getElementById("logCountBadge").textContent = total + "건";
+    const start = logPage * LOG_PAGE_SIZE;
+    const page = logs.slice(start, start + LOG_PAGE_SIZE);
+
+    const tbody = document.getElementById("logTableBody");
+    if (total === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" class="log-empty">아직 로그가 없습니다</td></tr>`;
+    } else {
+      tbody.innerHTML = page.map((l) => {
+        const d = new Date(l.ts);
+        const time = d.toLocaleDateString("ko-KR", { month: "short", day: "numeric" }) + " " + d.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
+        const actionClass = l.action === "open" ? "open" : l.action === "like" ? "like" : "unlike";
+        const actionLabel = l.action === "open" ? "실행" : l.action === "like" ? "좋아요" : "좋아요 취소";
+        return `<tr>
+          <td>${time}</td>
+          <td>${escapeHtml(l.user)}</td>
+          <td>${escapeHtml(l.agentName)}</td>
+          <td><span class="log-action ${actionClass}">${actionLabel}</span></td>
+        </tr>`;
+      }).join("");
+    }
+
+    // 페이지네이션
+    const totalPages = Math.ceil(total / LOG_PAGE_SIZE);
+    const pag = document.getElementById("logPagination");
+    if (totalPages <= 1) { pag.innerHTML = ""; return; }
+    let html = `<button class="log-page-btn" ${logPage === 0 ? "disabled" : ""} data-p="${logPage - 1}">&lt;</button>`;
+    for (let i = 0; i < totalPages && i < 7; i++) {
+      html += `<button class="log-page-btn${i === logPage ? " active" : ""}" data-p="${i}">${i + 1}</button>`;
+    }
+    html += `<button class="log-page-btn" ${logPage >= totalPages - 1 ? "disabled" : ""} data-p="${logPage + 1}">&gt;</button>`;
+    pag.innerHTML = html;
+    pag.querySelectorAll(".log-page-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.disabled) return;
+        logPage = parseInt(btn.dataset.p);
+        renderLogTable(loadLogs());
+      });
+    });
+  }
+
+  // ===== 헬퍼 =====
+  function findAgent(id) {
+    for (const cat of agents) {
+      const found = cat.items.find((a) => a.id === id);
+      if (found) return found;
+    }
+    return null;
+  }
+
+  function getAllAgents() {
+    return agents.flatMap((c) => c.items);
+  }
+
+  // ===== 홈 검색 =====
+  function renderHomeSearchResults(keyword) {
+    const k = keyword.trim().toLowerCase();
+    if (!k) {
+      homeSearchResults.classList.remove("visible");
+      homeSearchResults.innerHTML = "";
+      return;
+    }
+    const results = getAllAgents().filter(
+      (a) => a.name.toLowerCase().includes(k) || a.desc.toLowerCase().includes(k)
+    );
+    if (results.length === 0) {
+      homeSearchResults.innerHTML = `<div class="empty-state">"${escapeHtml(keyword)}"에 대한 결과가 없어요</div>`;
+    } else {
+      homeSearchResults.innerHTML = results
+        .map(
+          (a) => `
+          <button class="search-result-item" data-id="${a.id}">
+            <div class="agent-icon icon-${a.color}">${a.icon}</div>
+            <div class="agent-info">
+              <div class="agent-name">${a.name}</div>
+              <div class="agent-desc">${a.desc}</div>
+            </div>
+          </button>
+        `
+        )
+        .join("");
+      homeSearchResults.querySelectorAll(".search-result-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          const agent = findAgent(item.dataset.id);
+          if (agent) {
+            switchView("agent");
+            selectAgent(agent);
+            homeSearchInput.value = "";
+            homeSearchClear.classList.remove("visible");
+            homeSearchResults.classList.remove("visible");
+          }
+        });
+      });
+    }
+    homeSearchResults.classList.add("visible");
+  }
+
+  homeSearchInput.addEventListener("input", (e) => {
+    const v = e.target.value;
+    homeSearchClear.classList.toggle("visible", v.length > 0);
+    renderHomeSearchResults(v);
+  });
+
+  homeSearchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const k = homeSearchInput.value.trim().toLowerCase();
+      if (!k) return;
+      const first = getAllAgents().find(
+        (a) => a.name.toLowerCase().includes(k) || a.desc.toLowerCase().includes(k)
+      );
+      if (first) {
+        switchView("agent");
+        selectAgent(first);
+      }
+    } else if (e.key === "Escape") {
+      homeSearchInput.value = "";
+      homeSearchClear.classList.remove("visible");
+      homeSearchResults.classList.remove("visible");
+    }
+  });
+
+  homeSearchClear.addEventListener("click", () => {
+    homeSearchInput.value = "";
+    homeSearchClear.classList.remove("visible");
+    homeSearchResults.classList.remove("visible");
+    homeSearchInput.focus();
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".home-search")) {
+      homeSearchResults.classList.remove("visible");
+    }
+  });
+
+  // ===== 홈 빠른 접근 =====
+  function renderQuickGrid() {
+    const featured = getAllAgents().filter((a) => a.featured).slice(0, 8);
+    homeQuickGrid.innerHTML = featured
+      .map(
+        (a) => `
+        <button class="quick-card" data-id="${a.id}">
+          <div class="quick-card-icon icon-${a.color}">${a.icon}</div>
+          <div class="quick-card-info">
+            <div class="quick-card-name">${a.name}</div>
+            <div class="quick-card-desc">${a.desc}</div>
+          </div>
+        </button>
+      `
+      )
+      .join("");
+    homeQuickGrid.querySelectorAll(".quick-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const agent = findAgent(card.dataset.id);
+        if (agent) {
+          switchView("agent");
+          selectAgent(agent);
+        }
+      });
+    });
+  }
+
+  // ===== 사이드바 (Agent 뷰) =====
+  // ===== 카테고리 필터 칩 =====
+  function renderCategoryFilters() {
+    const cats = agents.map((c) => c.category);
+    categoryFilters.innerHTML = `<button class="cat-chip${currentCategory === null ? " active" : ""}" data-cat="">전체</button>` +
+      cats.map((c) => `<button class="cat-chip${currentCategory === c ? " active" : ""}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join("");
+    categoryFilters.querySelectorAll(".cat-chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cat = btn.dataset.cat || null;
+        currentCategory = cat;
+        renderCategoryFilters();
+        renderAgentList(searchInput.value);
+      });
+    });
+  }
+
+  function renderAgentList(filter = "") {
+    agentListEl.innerHTML = "";
+    const keyword = filter.trim().toLowerCase();
+    let totalShown = 0;
+
+    agents.forEach((cat) => {
+      // 카테고리 필터 적용
+      if (currentCategory && cat.category !== currentCategory) return;
+
+      const filtered = cat.items.filter(
+        (a) => !keyword || a.name.toLowerCase().includes(keyword) || a.desc.toLowerCase().includes(keyword)
+      );
+      if (filtered.length === 0) return;
+
+      const catEl = document.createElement("div");
+      catEl.className = "category";
+      catEl.innerHTML = `<div class="category-title">${cat.category}</div>`;
+
+      filtered.forEach((agent) => {
+        const btn = document.createElement("button");
+        btn.className = "agent-item";
+        btn.dataset.id = agent.id;
+        if (agent.id === currentAgentId) btn.classList.add("active");
+        const { count, liked } = getLikeState(agent.id);
+        btn.innerHTML = `
+          <div class="agent-icon icon-${agent.color}">${agent.icon}</div>
+          <div class="agent-info">
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-desc">${agent.desc}</div>
+          </div>
+          ${agent.badge ? `<div class="agent-badge">${agent.badge}</div>` : ""}
+          <div class="like-wrap">
+            <button class="like-btn${liked ? " liked" : ""}" data-agent-id="${agent.id}" aria-label="좋아요">
+              <svg viewBox="0 0 24 24">
+                <path class="heart-outline" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                <path class="heart-filled" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+            </button>
+            <span class="like-count${liked ? " liked" : ""}">${count > 0 ? count : ""}</span>
+          </div>
+        `;
+        // 좋아요 버튼 클릭 (이벤트 버블링 차단)
+        const likeBtn = btn.querySelector(".like-btn");
+        likeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const result = toggleLike(agent.id);
+          likeBtn.classList.toggle("liked", result.liked);
+          const countEl = btn.querySelector(".like-count");
+          countEl.textContent = result.count > 0 ? result.count : "";
+          countEl.classList.toggle("liked", result.liked);
+          // 재생 애니메이션 트릭
+          if (result.liked) {
+            likeBtn.classList.remove("liked");
+            void likeBtn.offsetWidth;
+            likeBtn.classList.add("liked");
+          }
+        });
+        btn.addEventListener("click", () => selectAgent(agent));
+        btn.addEventListener("mouseenter", () => showAgentTooltip(agent, btn));
+        btn.addEventListener("mouseleave", hideAgentTooltip);
+        catEl.appendChild(btn);
+        totalShown++;
+      });
+      agentListEl.appendChild(catEl);
+    });
+
+    if (totalShown === 0) {
+      agentListEl.innerHTML = `<div class="empty-state">검색 결과가 없어요</div>`;
+    }
+  }
+
+  // ===== Tooltip =====
+  let tooltipTimer = null;
+
+  function showAgentTooltip(agent, anchor) {
+    clearTimeout(tooltipTimer);
+    tooltipTimer = setTimeout(() => {
+      const desc = agent.tooltip || agent.desc;
+      agentTooltip.innerHTML = `
+        <div class="tooltip-header">
+          <div class="tooltip-icon icon-${agent.color}">${agent.icon}</div>
+          <div class="tooltip-name">
+            ${escapeHtml(agent.name)}
+            ${agent.badge ? `<span class="tooltip-badge">${escapeHtml(agent.badge)}</span>` : ""}
+          </div>
+        </div>
+        <div class="tooltip-desc">${escapeHtml(desc)}</div>
+        <div class="tooltip-meta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          <span class="tooltip-url">${escapeHtml(agent.url)}</span>
+        </div>
+        <div class="tooltip-hint">클릭하면 바로 실행돼요</div>
+      `;
+
+      // 위치 계산 — 사이드바 아이템 오른쪽에 표시
+      const rect = anchor.getBoundingClientRect();
+      agentTooltip.style.visibility = "hidden";
+      agentTooltip.classList.add("visible");
+      const tipRect = agentTooltip.getBoundingClientRect();
+      const left = rect.right + 14;
+      let top = rect.top + rect.height / 2 - 28;
+      // 하단 잘림 방지
+      if (top + tipRect.height > window.innerHeight - 12) {
+        top = window.innerHeight - tipRect.height - 12;
+      }
+      if (top < 12) top = 12;
+      agentTooltip.style.left = left + "px";
+      agentTooltip.style.top = top + "px";
+      agentTooltip.style.visibility = "visible";
+    }, 120);
+  }
+
+  function hideAgentTooltip() {
+    clearTimeout(tooltipTimer);
+    agentTooltip.classList.remove("visible");
+  }
+
+  // 스크롤하면 툴팁 숨김
+  document.addEventListener("scroll", hideAgentTooltip, true);
+
+  // ===== 에이전트 선택 =====
+  function selectAgent(agent) {
+    currentAgentId = agent.id;
+
+    // 한번 열면 NEW 배지 제거 (localStorage 저장)
+    if (agent.badge) {
+      markSeen(agent.id);
+      agent.badge = null;
+      renderAgentList(searchInput.value);
+    }
+
+    addLog("open", agent.id, agent.name);
+
+    agentMainIcon.style.display = "flex";
+    agentMainIcon.className = `agent-main-icon icon-${agent.color}`;
+    agentMainIcon.textContent = agent.icon;
+    agentTitle.textContent = agent.name;
+    agentMeta.textContent = agent.desc;
+    refreshBtn.style.display = "flex";
+    openNewBtn.style.display = "flex";
+
+    loadingOverlay.classList.add("active");
+    iframeWrapper.innerHTML = `<iframe src="${agent.url}" allow="clipboard-read; clipboard-write; microphone; camera" id="agentFrame"></iframe>`;
+    const frame = document.getElementById("agentFrame");
+    frame.addEventListener("load", () => {
+      loadingOverlay.classList.remove("active");
+    });
+
+    document.querySelectorAll(".agent-item").forEach((el) => {
+      el.classList.toggle("active", el.dataset.id === agent.id);
+    });
+
+    refreshBtn.onclick = () => {
+      loadingOverlay.classList.add("active");
+      frame.src = frame.src;
+    };
+    openNewBtn.onclick = () => window.open(agent.url, "_blank", "noopener");
+
+    closeSidebar();
+    history.replaceState(null, "", `#agent/${agent.id}`);
+  }
+
+  searchInput.addEventListener("input", (e) => {
+    renderAgentList(e.target.value);
+  });
+
+  // ===== 모바일 사이드바 =====
+  function openSidebar() {
+    sidebar.classList.add("open");
+    backdrop.classList.add("active");
+  }
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    backdrop.classList.remove("active");
+  }
+  menuToggle.addEventListener("click", openSidebar);
+  backdrop.addEventListener("click", closeSidebar);
+
+  // ===== 유틸 =====
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  // ===== 초기화 =====
+  renderCategoryFilters();
+  renderAgentList();
+  renderQuickGrid();
+
+  // URL 해시 라우팅
+  const hash = location.hash.replace("#", "");
+  if (hash.startsWith("agent/")) {
+    const id = hash.slice("agent/".length);
+    const agent = findAgent(id);
+    switchView("agent");
+    if (agent) selectAgent(agent);
+  } else if (hash === "agent") {
+    switchView("agent");
+  } else if (hash === "admin") {
+    switchView("admin");
+  } else {
+    switchView("home");
+    setTimeout(() => homeSearchInput.focus(), 100);
+  }
+</script>
+</body>
+</html>
