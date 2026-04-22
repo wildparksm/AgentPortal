@@ -1298,6 +1298,344 @@
   .log-page-btn.active { background: var(--toss-blue); color: white; border-color: var(--toss-blue); }
   .log-page-btn:disabled { opacity: 0.4; cursor: default; }
 
+  /* ===== Prompt View ===== */
+  .prompt-view {
+    flex-direction: column;
+    background: var(--bg-secondary);
+    overflow-y: auto;
+  }
+
+  .prompt-inner {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+  }
+
+  .prompt-page-header {
+    margin-bottom: 28px;
+  }
+
+  .prompt-page-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .prompt-page-desc {
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+
+  .prompt-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .prompt-search {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 360px;
+  }
+
+  .prompt-search input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px 0 40px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: all 0.15s ease;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .prompt-search input::placeholder { color: var(--text-tertiary); }
+  .prompt-search input:focus { outline: none; border-color: var(--toss-blue); }
+
+  .prompt-search svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    pointer-events: none;
+  }
+
+  .prompt-cat-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .prompt-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    align-self: center;
+  }
+
+  .prompt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .prompt-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    text-align: left;
+  }
+
+  .prompt-card:hover {
+    border-color: var(--toss-blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .prompt-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .prompt-card-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .prompt-card-title-wrap { flex: 1; min-width: 0; }
+
+  .prompt-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    margin-bottom: 3px;
+  }
+
+  .prompt-card-cat {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+  }
+
+  .prompt-card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .prompt-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+  }
+
+  .prompt-card-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .prompt-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+  }
+
+  .prompt-use-btn {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 8px;
+    background: var(--toss-blue-light);
+    color: var(--toss-blue);
+    border: none;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    white-space: nowrap;
+  }
+
+  .prompt-use-btn:hover { background: var(--toss-blue); color: white; }
+
+  .prompt-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-tertiary);
+    font-size: 14px;
+  }
+
+  /* Prompt 상세 모달 */
+  .prompt-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .prompt-modal-backdrop.open { display: flex; }
+
+  .prompt-modal {
+    background: var(--bg-primary);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.16);
+  }
+
+  .prompt-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .prompt-modal-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+
+  .prompt-modal-cat {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+
+  .prompt-modal-close {
+    margin-left: auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: var(--bg-tertiary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+
+  .prompt-modal-close:hover { background: var(--border-color); }
+
+  .prompt-modal-body { padding: 20px 24px; }
+
+  .prompt-modal-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .prompt-modal-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .prompt-modal-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text-primary);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .prompt-modal-actions {
+    display: flex;
+    gap: 8px;
+    padding: 16px 24px 24px;
+  }
+
+  .prompt-modal-actions button {
+    flex: 1;
+    height: 44px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.12s ease;
+  }
+
+  .prompt-modal-actions .copy-btn { background: var(--toss-blue); color: white; }
+  .prompt-modal-actions .copy-btn:hover { background: var(--toss-blue-hover); }
+  .prompt-modal-actions .close-btn { background: var(--bg-tertiary); color: var(--text-secondary); }
+  .prompt-modal-actions .close-btn:hover { background: var(--border-color); }
+
+  .prompt-inline-copy {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.12s ease;
+  }
+  .prompt-inline-copy:hover { background: var(--toss-blue-light); border-color: var(--toss-blue); color: var(--toss-blue); }
+  .prompt-inline-copy.copied { background: #E6F9F0; border-color: #10B981; color: #10B981; }
+
   /* Mobile */
   .menu-toggle { display: none; }
 
@@ -1360,7 +1698,19 @@
           <line x1="8" y1="16" x2="8" y2="16"></line>
           <line x1="16" y1="16" x2="16" y2="16"></line>
         </svg>
-        AI Agent
+        Agent
+      </button>
+      <button class="nav-tab" data-view="agentic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        Agentic
+      </button>
+      <button class="nav-tab" data-view="prompt">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Prompt
       </button>
       <button class="nav-tab admin-only" data-view="admin" id="adminTab">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1449,7 +1799,7 @@
     <section class="view agent-view" id="agentView">
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-          <div class="sidebar-title">AI Agent</div>
+          <div class="sidebar-title">Agent</div>
           <div class="search-box">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
@@ -1509,16 +1859,319 @@
         </div>
       </div>
     </section>
+    <!-- Prompt View -->
+    <section class="view prompt-view" id="promptView">
+      <div class="prompt-inner">
+        <div class="prompt-page-header">
+          <div class="prompt-page-title">Prompt 라이브러리</div>
+          <div class="prompt-page-desc">업무에 바로 쓸 수 있는 프롬프트를 찾아 복사하세요</div>
+        </div>
+        <div class="prompt-controls">
+          <div class="prompt-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="promptSearchInput" placeholder="프롬프트 검색" autocomplete="off" />
+          </div>
+          <div class="prompt-cat-filters" id="promptCatFilters"></div>
+          <div class="prompt-count" id="promptCount"></div>
+        </div>
+        <div class="prompt-grid" id="promptGrid"></div>
+      </div>
+    </section>
+
+    <!-- Prompt 상세 모달 -->
+    <div class="prompt-modal-backdrop" id="promptModalBackdrop">
+      <div class="prompt-modal">
+        <div class="prompt-modal-header">
+          <div class="prompt-card-icon" id="pmIcon"></div>
+          <div>
+            <div class="prompt-modal-title" id="pmTitle"></div>
+            <div class="prompt-modal-cat" id="pmCat"></div>
+          </div>
+          <button class="prompt-modal-close" id="pmClose">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="prompt-modal-body">
+          <div class="prompt-modal-desc" id="pmDesc"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <div class="prompt-modal-label" style="margin-bottom:0;">프롬프트</div>
+            <button class="prompt-inline-copy" id="pmInlineCopy">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              복사
+            </button>
+          </div>
+          <div class="prompt-modal-content" id="pmContent"></div>
+        </div>
+        <div class="prompt-modal-actions">
+          <button class="copy-btn" id="pmCopyBtn">OPEN</button>
+          <button class="close-btn" id="pmCloseBtn">닫기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agentic View -->
+    <section class="view agent-view" id="agenticView">
+      <aside class="sidebar" id="agenticSidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">Agentic</div>
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="agenticSearchInput" placeholder="검색" />
+          </div>
+        </div>
+        <div class="category-filters" id="agenticCategoryFilters"></div>
+        <div class="agent-list" id="agenticList"></div>
+      </aside>
+      <div class="backdrop" id="agenticBackdrop"></div>
+      <div class="agent-tooltip" id="agenticTooltip"></div>
+      <div class="agent-main">
+        <header class="agent-header">
+          <div class="agent-title-wrap">
+            <button class="icon-btn menu-toggle" id="agenticMenuToggle" aria-label="메뉴">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+            <div class="agent-main-icon" id="agenticMainIcon" style="display:none;"></div>
+            <div>
+              <div class="agent-title" id="agenticTitle">에이전트를 선택하세요</div>
+              <div class="agent-meta" id="agenticMeta">왼쪽 목록에서 원하는 Agentic을 선택하세요</div>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="icon-btn" id="agenticRefreshBtn" aria-label="새로고침" title="새로고침" style="display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+            </button>
+            <button class="icon-btn" id="agenticOpenNewBtn" aria-label="새 창에서 열기" title="새 창에서 열기" style="display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </button>
+          </div>
+        </header>
+        <div class="iframe-container">
+          <div class="loading-overlay" id="agenticLoadingOverlay">
+            <div class="spinner"></div>
+          </div>
+          <div class="iframe-wrapper" id="agenticIframeWrapper">
+            <div class="agent-empty">
+              <div class="agent-empty-icon">⚡</div>
+              <div class="agent-empty-text">왼쪽에서 Agentic을 선택해주세요</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
 
 <script>
+  // ===== Prompt 데이터 =====
+  // 여기에 프롬프트를 등록하세요.
+  const prompts = [
+    {
+      category: "문서 작성",
+      items: [
+        {
+          id: "p-email-formal",
+          icon: "✉️", color: "blue",
+          title: "공식 비즈니스 이메일",
+          desc: "정중하고 명확한 비즈니스 이메일을 작성합니다.",
+          tags: ["이메일", "공식문서"],
+          prompt: `다음 조건에 맞는 비즈니스 이메일을 작성해 주세요.
+
+- 수신자: [수신자 이름/직책]
+- 목적: [이메일 목적]
+- 핵심 내용: [전달할 내용]
+- 톤: 정중하고 전문적인 어조
+
+이메일 형식:
+- 제목, 인사말, 본문, 마무리 인사, 서명 포함
+- 간결하고 명확하게 작성`
+        },
+        {
+          id: "p-report",
+          icon: "📄", color: "indigo",
+          title: "업무 보고서 초안",
+          desc: "주간/월간 업무 보고서 초안을 자동으로 작성합니다.",
+          tags: ["보고서", "문서"],
+          prompt: `아래 정보를 바탕으로 업무 보고서를 작성해 주세요.
+
+- 보고 기간: [기간]
+- 주요 업무 내용: [업무 내용]
+- 성과 및 결과: [성과]
+- 이슈 및 해결 방안: [이슈]
+- 다음 주 계획: [계획]
+
+형식: 항목별 정리, 핵심 수치 포함, 임원 보고 적합 수준`
+        },
+        {
+          id: "p-minutes",
+          icon: "📝", color: "purple",
+          title: "회의록 정리",
+          desc: "회의 내용을 구조화된 회의록으로 정리합니다.",
+          tags: ["회의", "요약"],
+          prompt: `아래 회의 내용을 회의록 형식으로 정리해 주세요.
+
+[회의 내용 붙여넣기]
+
+회의록 형식:
+1. 일시 및 참석자
+2. 회의 목적
+3. 주요 논의 사항 (항목별)
+4. 결정 사항
+5. 액션 아이템 (담당자, 기한 포함)`
+        },
+      ]
+    },
+    {
+      category: "데이터 분석",
+      items: [
+        {
+          id: "p-data-summary",
+          icon: "📊", color: "teal",
+          title: "데이터 요약 분석",
+          desc: "데이터를 붙여넣으면 핵심 인사이트를 요약해줍니다.",
+          tags: ["분석", "인사이트"],
+          prompt: `아래 데이터를 분석하고 핵심 인사이트를 도출해 주세요.
+
+[데이터 붙여넣기]
+
+분석 항목:
+- 주요 트렌드 및 패턴
+- 이상치 또는 주목할 수치
+- 비즈니스 관점의 시사점
+- 개선 제안 (있을 경우)
+
+결과는 비전문가도 이해할 수 있도록 작성해 주세요.`
+        },
+        {
+          id: "p-sql",
+          icon: "🗄️", color: "green",
+          title: "SQL 쿼리 생성",
+          desc: "자연어 요구사항을 SQL 쿼리로 변환합니다.",
+          tags: ["SQL", "개발"],
+          prompt: `다음 요구사항에 맞는 SQL 쿼리를 작성해 주세요.
+
+- DB 종류: [MySQL / PostgreSQL / MSSQL 등]
+- 테이블 구조: [테이블명(컬럼1, 컬럼2, ...)]
+- 요구사항: [원하는 결과]
+- 조건: [필터 조건, 정렬 등]
+
+주석과 함께 쿼리를 작성하고, 성능상 주의사항이 있으면 함께 알려주세요.`
+        },
+      ]
+    },
+    {
+      category: "개발",
+      items: [
+        {
+          id: "p-code-review",
+          icon: "🔍", color: "orange",
+          title: "코드 리뷰 요청",
+          desc: "코드를 붙여넣으면 리뷰 관점의 피드백을 받습니다.",
+          tags: ["코드", "리뷰"],
+          prompt: `아래 코드를 리뷰해 주세요.
+
+[코드 붙여넣기]
+
+리뷰 항목:
+1. 버그 또는 잠재적 오류
+2. 성능 개선 포인트
+3. 코드 가독성 및 유지보수성
+4. 보안 취약점 (해당 시)
+5. 개선된 코드 예시 (필요 시)
+
+언어: [언어명] / 목적: [해당 코드의 역할]`
+        },
+        {
+          id: "p-debug",
+          icon: "🐛", color: "red",
+          title: "에러 디버깅",
+          desc: "에러 메시지를 붙여넣으면 원인과 해결 방법을 안내합니다.",
+          tags: ["디버깅", "에러"],
+          prompt: `아래 에러를 분석하고 해결 방법을 알려주세요.
+
+에러 메시지:
+[에러 메시지 붙여넣기]
+
+관련 코드:
+[코드 붙여넣기]
+
+환경 정보:
+- 언어/프레임워크: [예: Python 3.11 / Django]
+- 발생 상황: [어떤 동작 중 에러가 발생했는지]`
+        },
+      ]
+    },
+    {
+      category: "커뮤니케이션",
+      items: [
+        {
+          id: "p-translate",
+          icon: "🌐", color: "pink",
+          title: "전문 번역",
+          desc: "기술/비즈니스 문서를 자연스럽게 번역합니다.",
+          tags: ["번역", "글로벌"],
+          prompt: `아래 텍스트를 [목표 언어]로 번역해 주세요.
+
+[번역할 텍스트]
+
+번역 조건:
+- 분야: [기술 / 비즈니스 / 법무 등]
+- 톤: [격식체 / 비격식체]
+- 특이사항: [고유명사 처리 방법, 유지할 표현 등]`
+        },
+      ]
+    },
+  ];
+
+  // ===== Agentic 데이터 =====
+  // AI Agent와 독립적으로 관리됩니다. 여기에 Agentic 항목을 등록하세요.
+  const agenticAgents = [
+    {
+      category: "워크플로우 자동화",
+      items: [
+        { id: "ag-workflow1", name: "Agentic Workflow A", desc: "멀티스텝 업무 자동화", tooltip: "여러 단계의 업무 프로세스를 자동으로 연결하고 실행하는 Agentic 워크플로우입니다.", icon: "⚡", color: "purple", url: "https://copilot.microsoft.com/", featured: true, badge: "NEW" },
+        { id: "ag-workflow2", name: "Agentic Workflow B", desc: "데이터 파이프라인 자동화", tooltip: "데이터 수집부터 가공, 저장까지 자동화된 파이프라인을 구성합니다.", icon: "🔄", color: "teal", url: "https://copilot.microsoft.com/", featured: true },
+      ],
+    },
+    {
+      category: "의사결정 지원",
+      items: [
+        { id: "ag-decision1", name: "Decision Agent", desc: "데이터 기반 의사결정 지원", tooltip: "실시간 데이터를 분석하여 최적의 의사결정 옵션을 제시합니다.", icon: "🎯", color: "orange", url: "https://copilot.microsoft.com/" },
+        { id: "ag-decision2", name: "Risk Analyzer", desc: "리스크 자동 분석 및 예측", tooltip: "비즈니스 리스크를 자동으로 감지하고 예방 방안을 제안합니다.", icon: "🛡️", color: "red", url: "https://copilot.microsoft.com/" },
+      ],
+    },
+  ];
+
   // ===== AI Agent 데이터 =====
   // 여기에 실제 AI Agent 정보를 등록하세요.
   const agents = [
     {
       category: "업무 자동화",
       items: [
+        { id: "daeduck-meeting-writer", name: "대덕 회의록 작성 도우미", desc: "대덕 전용 회의록 자동 작성", tooltip: "대덕전자 Copilot Studio 기반 사내 전용 회의록 작성 도우미입니다. 회의 내용을 입력하면 안건, 논의 사항, 결정사항, 액션 아이템을 표준 포맷으로 정리해 줍니다.", icon: "🎙️", color: "teal", url: "https://copilotstudio.microsoft.com/environments/Default-6079baf5-465b-476c-b2ee-8325ae7f3272/bots/pi_it/webchat?__version__=2", badge: "NEW", featured: true },
         { id: "copilot-main", name: "Microsoft Copilot", desc: "문서 작성 및 요약 지원", tooltip: "Microsoft 365와 연동되는 범용 AI 어시스턴트입니다. Word, Excel, PowerPoint, Outlook 작업을 자연어로 지시할 수 있고, 긴 문서 요약과 초안 작성에 활용하세요.", icon: "🤖", color: "blue", url: "https://copilot.microsoft.com/", featured: true },
         { id: "email-helper", name: "이메일 작성 도우미", desc: "비즈니스 이메일 자동 작성", tooltip: "수신자, 주제, 톤만 입력하면 비즈니스 이메일 초안을 작성해 줍니다. 답장, 사과문, 요청 메일 등 다양한 템플릿을 지원합니다.", icon: "✉️", color: "indigo", url: "https://copilot.microsoft.com/", badge: "NEW", featured: true },
         { id: "meeting-summary", name: "회의록 요약 AI", desc: "회의 내용 자동 요약", tooltip: "회의 녹음 또는 텍스트를 업로드하면 핵심 안건, 결정사항, 액션 아이템을 정리해 줍니다.", icon: "📝", color: "purple", url: "https://copilot.microsoft.com/" },
@@ -1527,6 +2180,7 @@
     {
       category: "개발 지원",
       items: [
+        { id: "infra-genie", name: "InfraGenie", desc: "인프라 관리 AI 어시스턴트", tooltip: "사내 인프라 관리를 도와주는 AI 어시스턴트입니다. 서버, 네트워크, 클라우드 리소스 관련 질의에 응답합니다.", icon: "🧞", color: "orange", url: "about:blank", badge: "NEW", featured: true },
         { id: "code-review", name: "코드 리뷰 AI", desc: "PR 자동 리뷰 에이전트", tooltip: "Pull Request에 자동으로 코드 리뷰를 남깁니다. 스타일, 잠재 버그, 성능 이슈를 검출하고 개선안을 제안합니다.", icon: "💻", color: "green", url: "https://copilot.microsoft.com/", featured: true },
         { id: "bug-finder", name: "버그 분석기", desc: "로그 기반 버그 원인 분석", tooltip: "에러 로그나 스택 트레이스를 입력하면 가능한 원인을 분석하고 수정 방법을 제시합니다.", icon: "🐛", color: "red", url: "https://copilot.microsoft.com/" },
       ],
@@ -1541,6 +2195,7 @@
     {
       category: "HR / 지원",
       items: [
+        { id: "hiring-agent-pi", name: "Hiring Agent(PI)", desc: "채용 업무 지원 AI (Copilot Studio)", tooltip: "Microsoft Copilot Studio 기반 채용 업무 지원 AI입니다. 지원자 스크리닝, 면접 질문 생성, 채용 공고 작성 등을 지원합니다.", icon: "🧑‍💼", color: "indigo", url: "about:blank", badge: "NEW", featured: true },
         { id: "hr-assistant", name: "HR 챗봇", desc: "사내 규정 및 복지 안내", tooltip: "휴가, 복지, 근태, 규정 관련 질문에 24시간 답변합니다. HR팀 문의 전 먼저 확인해 보세요.", icon: "👥", color: "pink", url: "https://copilot.microsoft.com/" },
         { id: "it-helpdesk", name: "IT 헬프데스크", desc: "IT 이슈 자동 상담", tooltip: "노트북, 네트워크, 사내 시스템 문제를 1차 진단합니다. 해결 안 되는 경우 IT팀으로 자동 티켓을 생성합니다.", icon: "🛠️", color: "blue", url: "https://copilot.microsoft.com/" },
       ],
@@ -1655,6 +2310,22 @@
   const backdrop = document.getElementById("backdrop");
   const agentTooltip = document.getElementById("agentTooltip");
   const adminView = document.getElementById("adminView");
+  const promptView = document.getElementById("promptView");
+  const agenticView = document.getElementById("agenticView");
+  const agenticSidebar = document.getElementById("agenticSidebar");
+  const agenticBackdrop = document.getElementById("agenticBackdrop");
+  const agenticTooltip = document.getElementById("agenticTooltip");
+  const agenticListEl = document.getElementById("agenticList");
+  const agenticCategoryFilters = document.getElementById("agenticCategoryFilters");
+  const agenticSearchInput = document.getElementById("agenticSearchInput");
+  const agenticTitle = document.getElementById("agenticTitle");
+  const agenticMeta = document.getElementById("agenticMeta");
+  const agenticMainIcon = document.getElementById("agenticMainIcon");
+  const agenticIframeWrapper = document.getElementById("agenticIframeWrapper");
+  const agenticLoadingOverlay = document.getElementById("agenticLoadingOverlay");
+  const agenticRefreshBtn = document.getElementById("agenticRefreshBtn");
+  const agenticOpenNewBtn = document.getElementById("agenticOpenNewBtn");
+  const agenticMenuToggle = document.getElementById("agenticMenuToggle");
   const adminTab = document.getElementById("adminTab");
 
   // ===== 관리자 인증 (쿼리스트링 ?id= 기반) =====
@@ -1676,12 +2347,18 @@
     currentView = view;
     homeView.classList.toggle("active", view === "home");
     agentView.classList.toggle("active", view === "agent");
+    agenticView.classList.toggle("active", view === "agentic");
+    promptView.classList.toggle("active", view === "prompt");
     adminView.classList.toggle("active", view === "admin");
     navTabs.forEach((t) => t.classList.toggle("active", t.dataset.view === view));
     if (view === "home") {
       history.replaceState(null, "", "#home");
     } else if (view === "agent" && !currentAgentId) {
       history.replaceState(null, "", "#agent");
+    } else if (view === "prompt") {
+      history.replaceState(null, "", "#prompt");
+    } else if (view === "agentic") {
+      history.replaceState(null, "", "#agentic");
     } else if (view === "admin") {
       history.replaceState(null, "", "#admin");
       renderAdminDashboard();
@@ -1933,6 +2610,240 @@
   }
 
   // ===== 사이드바 (Agent 뷰) =====
+  // ===== Prompt 뷰 로직 =====
+  let promptCurrentCat = null;
+
+  const promptSearchInput = document.getElementById("promptSearchInput");
+  const promptCatFilters = document.getElementById("promptCatFilters");
+  const promptGrid = document.getElementById("promptGrid");
+  const promptCount = document.getElementById("promptCount");
+  const promptModalBackdrop = document.getElementById("promptModalBackdrop");
+
+  function getAllPrompts() { return prompts.flatMap((c) => c.items.map((i) => ({ ...i, catName: c.category }))); }
+
+  function renderPromptCatFilters() {
+    const cats = prompts.map((c) => c.category);
+    promptCatFilters.innerHTML =
+      `<button class="cat-chip${promptCurrentCat === null ? " active" : ""}" data-cat="">전체</button>` +
+      cats.map((c) => `<button class="cat-chip${promptCurrentCat === c ? " active" : ""}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join("");
+    promptCatFilters.querySelectorAll(".cat-chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        promptCurrentCat = btn.dataset.cat || null;
+        renderPromptCatFilters();
+        renderPromptGrid(promptSearchInput.value);
+      });
+    });
+  }
+
+  function renderPromptGrid(filter = "") {
+    const keyword = filter.trim().toLowerCase();
+    const all = getAllPrompts();
+    const filtered = all.filter((p) => {
+      const catMatch = !promptCurrentCat || p.catName === promptCurrentCat;
+      const kwMatch = !keyword || p.title.toLowerCase().includes(keyword) || p.desc.toLowerCase().includes(keyword) || p.tags.some((t) => t.toLowerCase().includes(keyword));
+      return catMatch && kwMatch;
+    });
+
+    promptCount.textContent = filtered.length + "개";
+
+    if (filtered.length === 0) {
+      promptGrid.innerHTML = `<div class="prompt-empty">검색 결과가 없어요</div>`;
+      return;
+    }
+
+    promptGrid.innerHTML = filtered.map((p) => `
+      <button class="prompt-card" data-id="${p.id}">
+        <div class="prompt-card-top">
+          <div class="prompt-card-icon icon-${p.color}">${p.icon}</div>
+          <div class="prompt-card-title-wrap">
+            <div class="prompt-card-title">${escapeHtml(p.title)}</div>
+            <div class="prompt-card-cat">${escapeHtml(p.catName)}</div>
+          </div>
+        </div>
+        <div class="prompt-card-desc">${escapeHtml(p.desc)}</div>
+      </button>
+    `).join("");
+
+    promptGrid.querySelectorAll(".prompt-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const p = getAllPrompts().find((x) => x.id === card.dataset.id);
+        if (p) openPromptModal(p);
+      });
+    });
+  }
+
+  function copyToClipboard(text, btn, defaultLabel) {
+    navigator.clipboard.writeText(text).catch(() => {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    });
+    btn.classList.add("copied");
+    const orig = btn.innerHTML;
+    btn.innerHTML = "✅ 복사됐어요!";
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove("copied"); }, 2000);
+  }
+
+  function openPromptModal(p) {
+    document.getElementById("pmIcon").className = `prompt-card-icon icon-${p.color}`;
+    document.getElementById("pmIcon").textContent = p.icon;
+    document.getElementById("pmTitle").textContent = p.title;
+    document.getElementById("pmCat").textContent = p.catName;
+    document.getElementById("pmDesc").textContent = p.desc;
+    document.getElementById("pmContent").textContent = p.prompt;
+    promptModalBackdrop.classList.add("open");
+
+    // 인라인 복사 버튼
+    const inlineCopy = document.getElementById("pmInlineCopy");
+    inlineCopy.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> 복사`;
+    inlineCopy.classList.remove("copied");
+    inlineCopy.onclick = () => copyToClipboard(p.prompt, inlineCopy, "복사");
+
+    // OPEN 버튼 — url이 있으면 새 탭, 없으면 복사
+    const openBtn = document.getElementById("pmCopyBtn");
+    openBtn.textContent = "OPEN";
+    openBtn.className = "copy-btn";
+    openBtn.onclick = () => {
+      if (p.url) window.open(p.url, "_blank", "noopener");
+      else copyToClipboard(p.prompt, openBtn, "OPEN");
+    };
+  }
+
+  function closePromptModal() { promptModalBackdrop.classList.remove("open"); }
+
+  document.getElementById("pmClose").addEventListener("click", closePromptModal);
+  document.getElementById("pmCloseBtn").addEventListener("click", closePromptModal);
+  promptModalBackdrop.addEventListener("click", (e) => { if (e.target === promptModalBackdrop) closePromptModal(); });
+
+  promptSearchInput.addEventListener("input", (e) => renderPromptGrid(e.target.value));
+
+  // ===== Agentic 뷰 로직 =====
+  let currentAgenticId = null;
+  let currentAgenticCategory = null;
+
+  function findAgenticAgent(id) {
+    for (const cat of agenticAgents) {
+      const found = cat.items.find((a) => a.id === id);
+      if (found) return found;
+    }
+    return null;
+  }
+
+  function renderAgenticCategoryFilters() {
+    const cats = agenticAgents.map((c) => c.category);
+    agenticCategoryFilters.innerHTML =
+      `<button class="cat-chip${currentAgenticCategory === null ? " active" : ""}" data-cat="">전체</button>` +
+      cats.map((c) => `<button class="cat-chip${currentAgenticCategory === c ? " active" : ""}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join("");
+    agenticCategoryFilters.querySelectorAll(".cat-chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        currentAgenticCategory = btn.dataset.cat || null;
+        renderAgenticCategoryFilters();
+        renderAgenticList(agenticSearchInput.value);
+      });
+    });
+  }
+
+  function renderAgenticList(filter = "") {
+    agenticListEl.innerHTML = "";
+    const keyword = filter.trim().toLowerCase();
+    let totalShown = 0;
+
+    agenticAgents.forEach((cat) => {
+      if (currentAgenticCategory && cat.category !== currentAgenticCategory) return;
+      const filtered = cat.items.filter(
+        (a) => !keyword || a.name.toLowerCase().includes(keyword) || a.desc.toLowerCase().includes(keyword)
+      );
+      if (filtered.length === 0) return;
+
+      const catEl = document.createElement("div");
+      catEl.className = "category";
+      catEl.innerHTML = `<div class="category-title">${cat.category}</div>`;
+
+      filtered.forEach((agent) => {
+        const { count, liked } = getLikeState(agent.id);
+        const btn = document.createElement("button");
+        btn.className = "agent-item";
+        btn.dataset.id = agent.id;
+        if (agent.id === currentAgenticId) btn.classList.add("active");
+        btn.innerHTML = `
+          <div class="agent-icon icon-${agent.color}">${agent.icon}</div>
+          <div class="agent-info">
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-desc">${agent.desc}</div>
+          </div>
+          ${agent.badge ? `<div class="agent-badge">${agent.badge}</div>` : ""}
+          <div class="like-wrap">
+            <button class="like-btn${liked ? " liked" : ""}" data-agent-id="${agent.id}" aria-label="좋아요">
+              <svg viewBox="0 0 24 24">
+                <path class="heart-outline" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                <path class="heart-filled" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+            </button>
+            <span class="like-count${liked ? " liked" : ""}">${count > 0 ? count : ""}</span>
+          </div>
+        `;
+        const likeBtn = btn.querySelector(".like-btn");
+        likeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const result = toggleLike(agent.id);
+          likeBtn.classList.toggle("liked", result.liked);
+          const countEl = btn.querySelector(".like-count");
+          countEl.textContent = result.count > 0 ? result.count : "";
+          countEl.classList.toggle("liked", result.liked);
+          if (result.liked) { likeBtn.classList.remove("liked"); void likeBtn.offsetWidth; likeBtn.classList.add("liked"); }
+        });
+        btn.addEventListener("click", () => selectAgenticAgent(agent));
+        btn.addEventListener("mouseenter", () => showAgentTooltip(agent, btn, agenticTooltip));
+        btn.addEventListener("mouseleave", hideAgentTooltip);
+        catEl.appendChild(btn);
+        totalShown++;
+      });
+      agenticListEl.appendChild(catEl);
+    });
+
+    if (totalShown === 0) {
+      agenticListEl.innerHTML = `<div class="empty-state">검색 결과가 없어요</div>`;
+    }
+  }
+
+  function selectAgenticAgent(agent) {
+    currentAgenticId = agent.id;
+    addLog("open", agent.id, agent.name);
+
+    if (agent.badge) { markSeen(agent.id); agent.badge = null; renderAgenticList(agenticSearchInput.value); }
+
+    agenticMainIcon.style.display = "flex";
+    agenticMainIcon.className = `agent-main-icon icon-${agent.color}`;
+    agenticMainIcon.textContent = agent.icon;
+    agenticTitle.textContent = agent.name;
+    agenticMeta.textContent = agent.desc;
+    agenticRefreshBtn.style.display = "flex";
+    agenticOpenNewBtn.style.display = "flex";
+
+    agenticLoadingOverlay.classList.add("active");
+    agenticIframeWrapper.innerHTML = `<iframe src="${agent.url}" allow="clipboard-read; clipboard-write; microphone; camera" id="agenticFrame"></iframe>`;
+    const frame = document.getElementById("agenticFrame");
+    frame.addEventListener("load", () => agenticLoadingOverlay.classList.remove("active"));
+
+    document.querySelectorAll("#agenticList .agent-item").forEach((el) => {
+      el.classList.toggle("active", el.dataset.id === agent.id);
+    });
+
+    agenticRefreshBtn.onclick = () => { agenticLoadingOverlay.classList.add("active"); frame.src = frame.src; };
+    agenticOpenNewBtn.onclick = () => window.open(agent.url, "_blank", "noopener");
+
+    agenticSidebar.classList.remove("open");
+    agenticBackdrop.classList.remove("active");
+    history.replaceState(null, "", `#agentic/${agent.id}`);
+  }
+
+  agenticSearchInput.addEventListener("input", (e) => renderAgenticList(e.target.value));
+  agenticMenuToggle.addEventListener("click", () => { agenticSidebar.classList.add("open"); agenticBackdrop.classList.add("active"); });
+  agenticBackdrop.addEventListener("click", () => { agenticSidebar.classList.remove("open"); agenticBackdrop.classList.remove("active"); });
+
   // ===== 카테고리 필터 칩 =====
   function renderCategoryFilters() {
     const cats = agents.map((c) => c.category);
@@ -2022,11 +2933,11 @@
   // ===== Tooltip =====
   let tooltipTimer = null;
 
-  function showAgentTooltip(agent, anchor) {
+  function showAgentTooltip(agent, anchor, tipEl = agentTooltip) {
     clearTimeout(tooltipTimer);
     tooltipTimer = setTimeout(() => {
       const desc = agent.tooltip || agent.desc;
-      agentTooltip.innerHTML = `
+      tipEl.innerHTML = `
         <div class="tooltip-header">
           <div class="tooltip-icon icon-${agent.color}">${agent.icon}</div>
           <div class="tooltip-name">
@@ -2044,22 +2955,17 @@
         </div>
         <div class="tooltip-hint">클릭하면 바로 실행돼요</div>
       `;
-
-      // 위치 계산 — 사이드바 아이템 오른쪽에 표시
       const rect = anchor.getBoundingClientRect();
-      agentTooltip.style.visibility = "hidden";
-      agentTooltip.classList.add("visible");
-      const tipRect = agentTooltip.getBoundingClientRect();
+      tipEl.style.visibility = "hidden";
+      tipEl.classList.add("visible");
+      const tipRect = tipEl.getBoundingClientRect();
       const left = rect.right + 14;
       let top = rect.top + rect.height / 2 - 28;
-      // 하단 잘림 방지
-      if (top + tipRect.height > window.innerHeight - 12) {
-        top = window.innerHeight - tipRect.height - 12;
-      }
+      if (top + tipRect.height > window.innerHeight - 12) top = window.innerHeight - tipRect.height - 12;
       if (top < 12) top = 12;
-      agentTooltip.style.left = left + "px";
-      agentTooltip.style.top = top + "px";
-      agentTooltip.style.visibility = "visible";
+      tipEl.style.left = left + "px";
+      tipEl.style.top = top + "px";
+      tipEl.style.visibility = "visible";
     }, 120);
   }
 
@@ -2137,6 +3043,10 @@
   // ===== 초기화 =====
   renderCategoryFilters();
   renderAgentList();
+  renderAgenticCategoryFilters();
+  renderAgenticList();
+  renderPromptCatFilters();
+  renderPromptGrid();
   renderQuickGrid();
 
   // URL 해시 라우팅
@@ -2148,6 +3058,15 @@
     if (agent) selectAgent(agent);
   } else if (hash === "agent") {
     switchView("agent");
+  } else if (hash.startsWith("agentic/")) {
+    const id = hash.slice("agentic/".length);
+    const agent = findAgenticAgent(id);
+    switchView("agentic");
+    if (agent) selectAgenticAgent(agent);
+  } else if (hash === "agentic") {
+    switchView("agentic");
+  } else if (hash === "prompt") {
+    switchView("prompt");
   } else if (hash === "admin") {
     switchView("admin");
   } else {
