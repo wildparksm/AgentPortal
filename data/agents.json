@@ -1,0 +1,153 @@
+[
+  {
+    "category": "업무 자동화",
+    "items": [
+      {
+        "id": "daeduck-meeting-writer",
+        "name": "대덕 회의록 작성 도우미",
+        "desc": "대덕 전용 회의록 자동 작성",
+        "tooltip": "대덕전자 Copilot Studio 기반 사내 전용 회의록 작성 도우미입니다. 회의 내용을 입력하면 안건, 논의 사항, 결정사항, 액션 아이템을 표준 포맷으로 정리해 줍니다.",
+        "icon": "🎙️",
+        "color": "teal",
+        "url": "https://copilotstudio.microsoft.com/environments/Default-6079baf5-465b-476c-b2ee-8325ae7f3272/bots/pi_it/webchat?__version__=2",
+        "badge": "NEW",
+        "featured": true
+      },
+      {
+        "id": "copilot-main",
+        "name": "Microsoft Copilot",
+        "desc": "문서 작성 및 요약 지원",
+        "tooltip": "Microsoft 365와 연동되는 범용 AI 어시스턴트입니다. Word, Excel, PowerPoint, Outlook 작업을 자연어로 지시할 수 있고, 긴 문서 요약과 초안 작성에 활용하세요.",
+        "icon": "🤖",
+        "color": "blue",
+        "url": "https://copilot.microsoft.com/",
+        "featured": true
+      },
+      {
+        "id": "email-helper",
+        "name": "이메일 작성 도우미",
+        "desc": "비즈니스 이메일 자동 작성",
+        "tooltip": "수신자, 주제, 톤만 입력하면 비즈니스 이메일 초안을 작성해 줍니다. 답장, 사과문, 요청 메일 등 다양한 템플릿을 지원합니다.",
+        "icon": "✉️",
+        "color": "indigo",
+        "url": "https://copilot.microsoft.com/",
+        "badge": "NEW",
+        "featured": true
+      },
+      {
+        "id": "meeting-summary",
+        "name": "회의록 요약 AI",
+        "desc": "회의 내용 자동 요약",
+        "tooltip": "회의 녹음 또는 텍스트를 업로드하면 핵심 안건, 결정사항, 액션 아이템을 정리해 줍니다.",
+        "icon": "📝",
+        "color": "purple",
+        "url": "https://copilot.microsoft.com/"
+      }
+    ]
+  },
+  {
+    "category": "개발 지원",
+    "items": [
+      {
+        "id": "infra-genie",
+        "name": "InfraGenie",
+        "desc": "인프라 관리 AI 어시스턴트",
+        "tooltip": "사내 인프라 관리를 도와주는 AI 어시스턴트입니다. 서버, 네트워크, 클라우드 리소스 관련 질의에 응답합니다.",
+        "icon": "🧞",
+        "color": "orange",
+        "url": "https://copilotstudio.microsoft.com/environments/Default-6079baf5-465b-476c-b2ee-8325ae7f3272/bots/pi_it/webchat?__version__=2",
+        "badge": "NEW",
+        "featured": true
+      },
+      {
+        "id": "code-review",
+        "name": "코드 리뷰 AI",
+        "desc": "PR 자동 리뷰 에이전트",
+        "tooltip": "Pull Request에 자동으로 코드 리뷰를 남깁니다. 스타일, 잠재 버그, 성능 이슈를 검출하고 개선안을 제안합니다.",
+        "icon": "💻",
+        "color": "green",
+        "url": "https://copilot.microsoft.com/",
+        "featured": true
+      },
+      {
+        "id": "bug-finder",
+        "name": "버그 분석기",
+        "desc": "로그 기반 버그 원인 분석",
+        "tooltip": "에러 로그나 스택 트레이스를 입력하면 가능한 원인을 분석하고 수정 방법을 제시합니다.",
+        "icon": "🐛",
+        "color": "red",
+        "url": "https://copilot.microsoft.com/"
+      }
+    ]
+  },
+  {
+    "category": "데이터 분석",
+    "items": [
+      {
+        "id": "data-insight",
+        "name": "데이터 인사이트",
+        "desc": "자연어로 데이터 질의",
+        "tooltip": "사내 데이터베이스에 자연어로 질문하면 SQL을 생성해 결과를 보여줍니다. 차트와 인사이트도 함께 제공합니다.",
+        "icon": "📊",
+        "color": "teal",
+        "url": "https://copilot.microsoft.com/",
+        "featured": true
+      },
+      {
+        "id": "report-gen",
+        "name": "리포트 생성기",
+        "desc": "자동 보고서 작성",
+        "tooltip": "주간/월간 데이터를 기반으로 임원 보고용 리포트를 자동 생성합니다. PPT, PDF, Word 형식을 지원합니다.",
+        "icon": "📈",
+        "color": "orange",
+        "url": "https://copilot.microsoft.com/",
+        "badge": "HOT"
+      }
+    ]
+  },
+  {
+    "category": "HR / 지원",
+    "items": [
+      {
+        "id": "hiring-agent-pi",
+        "name": "Hiring Agent(PI)",
+        "desc": "채용 업무 지원 AI (Copilot Studio)",
+        "tooltip": "Microsoft Copilot Studio 기반 채용 업무 지원 AI입니다. 지원자 스크리닝, 면접 질문 생성, 채용 공고 작성 등을 지원합니다.",
+        "icon": "🧑‍💼",
+        "color": "indigo",
+        "url": "about:blank",
+        "badge": "NEW",
+        "featured": true
+      },
+      {
+        "id": "travel-orchestrator",
+        "name": "출장 도우미 오케스트레이터",
+        "desc": "출장 업무 통합 지원 AI",
+        "tooltip": "출장 신청, 항공/숙박 예약 가이드, 출장비 정산 등 출장 관련 업무를 통합적으로 지원하는 오케스트레이터 Agent입니다.",
+        "icon": "✈️",
+        "color": "teal",
+        "url": "https://copilotstudio.microsoft.com/environments/Default-6079baf5-465b-476c-b2ee-8325ae7f3272/bots/copilots_header_76006/webchat?__version__=2",
+        "badge": "NEW",
+        "featured": true
+      },
+      {
+        "id": "hr-assistant",
+        "name": "HR 챗봇",
+        "desc": "사내 규정 및 복지 안내",
+        "tooltip": "휴가, 복지, 근태, 규정 관련 질문에 24시간 답변합니다. HR팀 문의 전 먼저 확인해 보세요.",
+        "icon": "👥",
+        "color": "pink",
+        "url": "https://copilot.microsoft.com/"
+      },
+      {
+        "id": "it-helpdesk",
+        "name": "IT 헬프데스크",
+        "desc": "IT 이슈 자동 상담",
+        "tooltip": "노트북, 네트워크, 사내 시스템 문제를 1차 진단합니다. 해결 안 되는 경우 IT팀으로 자동 티켓을 생성합니다.",
+        "icon": "🛠️",
+        "color": "blue",
+        "url": "https://copilot.microsoft.com/"
+      }
+    ]
+  }
+]

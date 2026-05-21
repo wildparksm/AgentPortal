@@ -1,0 +1,85 @@
+[
+  {
+    "category": "워크플로우 자동화",
+    "items": [
+      {
+        "id": "daeduck-welfare-center",
+        "name": "대덕행정복지센터",
+        "desc": "사내 행정/복지 통합 Agentic",
+        "tooltip": "대덕전자 사내 행정·복지 업무를 통합 처리하는 Agentic 워크플로우입니다. 증명서 발급, 복지 신청, 행정 문의를 자동으로 처리합니다.",
+        "icon": "🏛️",
+        "color": "indigo",
+        "url": "https://copilotstudio.microsoft.com/environments/Default-6079baf5-465b-476c-b2ee-8325ae7f3272/bots/copilots_header_5b818/webchat?__version__=2",
+        "badge": "NEW",
+        "featured": true
+      },
+      {
+        "id": "ag-workflow1",
+        "name": "Agentic Workflow A",
+        "desc": "멀티스텝 업무 자동화",
+        "tooltip": "여러 단계의 업무 프로세스를 자동으로 연결하고 실행하는 Agentic 워크플로우입니다.",
+        "icon": "⚡",
+        "color": "purple",
+        "url": "https://copilot.microsoft.com/",
+        "featured": true,
+        "badge": "NEW"
+      },
+      {
+        "id": "ag-workflow2",
+        "name": "Agentic Workflow B",
+        "desc": "데이터 파이프라인 자동화",
+        "tooltip": "데이터 수집부터 가공, 저장까지 자동화된 파이프라인을 구성합니다.",
+        "icon": "🔄",
+        "color": "teal",
+        "url": "https://copilot.microsoft.com/",
+        "featured": true
+      }
+    ]
+  },
+  {
+    "category": "의사결정 지원",
+    "items": [
+      {
+        "id": "ag-decision1",
+        "name": "Decision Agent",
+        "desc": "데이터 기반 의사결정 지원",
+        "tooltip": "실시간 데이터를 분석하여 최적의 의사결정 옵션을 제시합니다.",
+        "icon": "🎯",
+        "color": "orange",
+        "url": "https://copilot.microsoft.com/"
+      },
+      {
+        "id": "ag-decision2",
+        "name": "Risk Analyzer",
+        "desc": "리스크 자동 분석 및 예측",
+        "tooltip": "비즈니스 리스크를 자동으로 감지하고 예방 방안을 제안합니다.",
+        "icon": "🛡️",
+        "color": "red",
+        "url": "https://copilot.microsoft.com/"
+      }
+    ]
+  },
+  {
+    "category": "김용범 테스트",
+    "items": [
+      {
+        "id": "ag-decision3",
+        "name": "김용범 테스트 1",
+        "desc": "데이터 기반 의사결정 지원",
+        "tooltip": "실시간 데이터를 분석하여 최적의 의사결정 옵션을 제시합니다.",
+        "icon": "🎯",
+        "color": "orange",
+        "url": "https://copilot.microsoft.com/"
+      },
+      {
+        "id": "ag-decision4",
+        "name": "Risk Analyzer",
+        "desc": "리스크 자동 분석 및 예측",
+        "tooltip": "비즈니스 리스크를 자동으로 감지하고 예방 방안을 제안합니다.",
+        "icon": "🛡️",
+        "color": "red",
+        "url": "https://copilot.microsoft.com/"
+      }
+    ]
+  }
+]
