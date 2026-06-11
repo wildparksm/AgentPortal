@@ -6,6 +6,12 @@
       "runtimeExecutable": "powershell",
       "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ".claude/server.ps1", "8000"],
       "port": 8000
+    },
+    {
+      "name": "verification-board",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "C:\\Users\\e230091\\Downloads\\serve.ps1"],
+      "port": 8765
     }
   ]
 }

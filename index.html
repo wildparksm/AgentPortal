@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light only" />
-<title>AI Station</title>
+<title>Agent Portal</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -261,6 +261,7 @@
     flex: 1;
     overflow: hidden;
     position: relative;
+    background: var(--bg-primary);   /* Agent/Agentic 중앙 집중 레이아웃 양옆 여백 (흰색) */
   }
 
   .view {
@@ -930,7 +931,14 @@
   }
 
   /* ===== Agent View ===== */
-  .agent-view { flex-direction: row; }
+  /* 중앙 집중형: 최대 너비로 제한하고 가운데 정렬, 양옆은 .views 배경(여백) 노출 */
+  .agent-view {
+    flex-direction: row;
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--bg-primary);
+    box-shadow: 0 0 0 1px var(--border-color), 0 8px 40px rgba(0, 0, 0, 0.06);
+  }
 
   .sidebar {
     width: var(--sidebar-width);
@@ -1020,12 +1028,12 @@
 
   .search-box input {
     width: 100%;
-    height: 42px;
-    padding: 0 14px 0 40px;
+    height: 46px;
+    padding: 0 16px 0 44px;
     background: var(--bg-tertiary);
     border: 1px solid transparent;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-primary);
     font-family: inherit;
     transition: all 0.15s ease;
@@ -1041,9 +1049,11 @@
 
   .search-box svg {
     position: absolute;
-    left: 12px;
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
     color: var(--text-tertiary);
     pointer-events: none;
   }
@@ -1057,13 +1067,13 @@
   }
 
   .cat-chip {
-    height: 32px;
-    padding: 0 12px;
-    border-radius: 16px;
+    height: 36px;
+    padding: 0 15px;
+    border-radius: 18px;
     border: 1px solid var(--border-color);
     background: var(--bg-primary);
     color: var(--text-secondary);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
@@ -1100,7 +1110,7 @@
 
   .category-title {
     padding: 8px 12px;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--text-tertiary);
     text-transform: uppercase;
@@ -1133,14 +1143,14 @@
   }
 
   .agent-icon {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    border-radius: 9px;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 19px;
     background: var(--bg-tertiary);
   }
 
@@ -1156,7 +1166,7 @@
   .agent-info { flex: 1; min-width: 0; }
 
   .agent-name {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
     white-space: nowrap;
@@ -1166,9 +1176,9 @@
   }
 
   .agent-desc {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--text-tertiary);
-    margin-top: 2px;
+    margin-top: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1328,7 +1338,7 @@
   }
 
   .tooltip-name {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.2px;
@@ -1349,9 +1359,9 @@
   }
 
   .tooltip-desc {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-secondary);
-    line-height: 1.55;
+    line-height: 1.6;
     margin-bottom: 10px;
   }
 
@@ -1406,36 +1416,36 @@
   }
 
   .agent-header {
-    height: 56px;
+    height: 64px;
     background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 22px;
     flex-shrink: 0;
   }
 
   .agent-title-wrap {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
     min-width: 0;
   }
 
   .agent-main-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 17px;
     flex-shrink: 0;
   }
 
   .agent-title {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.3px;
@@ -1445,9 +1455,9 @@
   }
 
   .agent-meta {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--text-tertiary);
-    margin-top: 1px;
+    margin-top: 2px;
   }
 
   .actions { display: flex; gap: 6px; }
@@ -2303,6 +2313,8 @@
     .rail-card-desc { font-size: 14px; min-height: 44px; }
     .home-rail-title { font-size: 17px; }
     .rail-nav-btn { display: none; }
+    /* 모바일에서는 Agent/Agentic 중앙 정렬 해제 — 전체 너비로 */
+    .agent-view { max-width: none; box-shadow: none; }
     .sidebar {
       position: fixed;
       left: 0;
@@ -2336,7 +2348,7 @@
     <button class="topnav-logo" id="logoBtn" aria-label="홈으로">
       <!-- 실제 로고 이미지로 교체하려면 아래 두 div를 <img src="logo.png" height="28" /> 로 바꾸세요 -->
       <div class="logo-mark">AI</div>
-      <div class="logo-text">AI Station</div>
+      <div class="logo-text">Agent Portal</div>
     </button>
     <div class="topnav-tabs" id="topnavTabs">
       <button class="nav-tab active" data-view="home">
@@ -2480,14 +2492,14 @@
               24시간 운영 · 사내 임직원 전용
             </div>
             <div class="footer-disclaimer">
-              AI Station은 사내 통합 AI Agent 게이트웨이입니다.<br/>
+              Agent Portal은 사내 통합 AI Agent 게이트웨이입니다.<br/>
               새 Agent / Agentic / Prompt 등록은 IT인프라그룹으로 문의주세요.
             </div>
           </div>
 
           <div class="big-footer-cols">
             <div class="big-footer-col">
-              <div class="big-footer-col-title">AI Station</div>
+              <div class="big-footer-col-title">Agent Portal</div>
               <a class="big-footer-link" href="#home">홈</a>
               <a class="big-footer-link" href="#agent">Agent</a>
               <a class="big-footer-link" href="#agentic">Agentic</a>
@@ -2511,7 +2523,7 @@
           </div>
         </div>
         <div class="big-footer-bottom">
-          © 2026 DAEDUCK Electronics Co., Ltd. — AI Station
+          © 2026 DAEDUCK Electronics Co., Ltd. — Agent Portal
         </div>
       </footer>
     </section>
@@ -3823,10 +3835,8 @@
     agenticRefreshBtn.style.display = "flex";
     agenticOpenNewBtn.style.display = "flex";
 
-    agenticLoadingOverlay.classList.add("active");
-    agenticIframeWrapper.innerHTML = `<iframe src="${agent.url}" allow="clipboard-read; clipboard-write; microphone; camera" id="agenticFrame"></iframe>`;
-    const frame = document.getElementById("agenticFrame");
-    frame.addEventListener("load", () => agenticLoadingOverlay.classList.remove("active"));
+    // Keep-Alive 풀에서 iframe 재사용/생성
+    const frame = showPooledFrame(agenticIframeWrapper, agenticLoadingOverlay, agent);
 
     document.querySelectorAll("#agenticList .agent-item").forEach((el) => {
       el.classList.toggle("active", el.dataset.id === agent.id);
@@ -3980,6 +3990,60 @@
   // 스크롤하면 툴팁 숨김
   document.addEventListener("scroll", hideAgentTooltip, true);
 
+  // ===== iframe Keep-Alive 풀 (최근 5개만 DOM 유지, LRU 제거) =====
+  const IFRAME_POOL_MAX = 5;
+  let _frameUseCounter = 0;
+
+  // wrapper 안에서 agent.id에 해당하는 iframe을 재사용하거나 새로 만들고,
+  // 나머지는 숨김. 5개 초과 시 가장 오래 안 쓴 iframe을 제거.
+  // 반환: 활성 iframe 엘리먼트
+  function showPooledFrame(wrapper, overlay, agent) {
+    // 최초 선택 시 빈 상태 placeholder 숨김
+    const empty = wrapper.querySelector(".agent-empty");
+    if (empty) empty.style.display = "none";
+
+    let frame = wrapper.querySelector(`iframe[data-agent-id="${CSS.escape(agent.id)}"]`);
+    const isNew = !frame;
+
+    if (isNew) {
+      frame = document.createElement("iframe");
+      frame.dataset.agentId = agent.id;
+      frame.setAttribute("allow", "clipboard-read; clipboard-write; microphone; camera");
+      frame.style.display = "none";
+      // 새 iframe만 로딩 오버레이 표시
+      overlay.classList.add("active");
+      frame.addEventListener("load", () => {
+        // 로드 완료 시점에 여전히 보이는(활성) iframe일 때만 오버레이 숨김
+        if (frame.style.display !== "none") overlay.classList.remove("active");
+      });
+      wrapper.appendChild(frame);
+      frame.src = agent.url;
+    } else {
+      // 이미 로드된 iframe → 즉시 표시, 로딩 없음
+      overlay.classList.remove("active");
+    }
+
+    // LRU 카운터 갱신
+    frame.dataset.lastUsed = String(++_frameUseCounter);
+
+    // 선택한 것만 표시, 나머지 숨김
+    wrapper.querySelectorAll("iframe").forEach((f) => {
+      f.style.display = (f === frame) ? "block" : "none";
+    });
+
+    // 5개 초과 시 가장 오래 안 쓴 iframe 제거 (현재 활성 iframe은 제외)
+    const frames = Array.from(wrapper.querySelectorAll("iframe"));
+    if (frames.length > IFRAME_POOL_MAX) {
+      frames
+        .filter((f) => f !== frame)
+        .sort((a, b) => (+a.dataset.lastUsed || 0) - (+b.dataset.lastUsed || 0))
+        .slice(0, frames.length - IFRAME_POOL_MAX)
+        .forEach((f) => f.remove());
+    }
+
+    return frame;
+  }
+
   // ===== 에이전트 선택 =====
   function selectAgent(agent) {
     currentAgentId = agent.id;
@@ -4001,14 +4065,10 @@
     refreshBtn.style.display = "flex";
     openNewBtn.style.display = "flex";
 
-    loadingOverlay.classList.add("active");
-    iframeWrapper.innerHTML = `<iframe src="${agent.url}" allow="clipboard-read; clipboard-write; microphone; camera" id="agentFrame"></iframe>`;
-    const frame = document.getElementById("agentFrame");
-    frame.addEventListener("load", () => {
-      loadingOverlay.classList.remove("active");
-    });
+    // Keep-Alive 풀에서 iframe 재사용/생성
+    const frame = showPooledFrame(iframeWrapper, loadingOverlay, agent);
 
-    document.querySelectorAll(".agent-item").forEach((el) => {
+    document.querySelectorAll("#agentList .agent-item").forEach((el) => {
       el.classList.toggle("active", el.dataset.id === agent.id);
     });
 
@@ -4043,7 +4103,11 @@
   const SIDEBAR_MIN = 260;
   const SIDEBAR_DEFAULT = 380;
   const isMobile = () => window.innerWidth <= 600;
-  const getMaxSidebar = () => Math.floor(window.innerWidth * 0.5);
+  // 중앙 정렬된 .agent-view(최대 1280px) 기준으로 사이드바 최대 너비 계산
+  const getMaxSidebar = () => {
+    const viewWidth = Math.min(1280, window.innerWidth);
+    return Math.floor(viewWidth * 0.5);
+  };
 
   function applySidebarWidth(w) {
     if (isMobile()) return;

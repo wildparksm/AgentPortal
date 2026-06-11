@@ -8,7 +8,20 @@
       "Read(//c/Program Files/**)",
       "Read(//c/Users/e230091/AppData/Local/Programs/**)",
       "Bash(where powershell.exe)",
-      "Bash(curl -s -m 3 -o /dev/null -w \"HTTP %{http_code} - %{size_download} bytes\" http://localhost:8000/)"
+      "Bash(curl -s -m 3 -o /dev/null -w \"HTTP %{http_code} - %{size_download} bytes\" http://localhost:8000/)",
+      "PowerShell(@\\(\"data/agents.json\", \"data/agentic.json\", \"data/prompts.json\"\\) | ForEach-Object { try { $j = Get-Content $_ -Raw -Encoding UTF8 | ConvertFrom-Json; Write-Host \"$_  OK \\($\\($j.Count\\) categories\\)\" } catch { Write-Host \"$_  FAIL: $_\" } })",
+      "PowerShell(powershell -NoProfile -ExecutionPolicy Bypass -File .claude/server.ps1 8000)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/data/agents.json\" -UseBasicParsing -TimeoutSec 5; Write-Host \"Server OK - Status: $\\($r.StatusCode\\), Length: $\\($r.Content.Length\\) bytes\" } catch { Write-Host \"Server check failed: $_\" })",
+      "Bash(git add *)",
+      "Bash(git push *)",
+      "Bash(ls -la \"C:/Users/e230091/Downloads/verification-board.html\")",
+      "Bash(py --version)",
+      "Bash(where.exe python *)",
+      "PowerShell(python --version)",
+      "PowerShell(node --version 2>&1)",
+      "PowerShell(npx --version 2>&1)",
+      "PowerShell(Add-Type -AssemblyName System.Web; powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\e230091\\\\Downloads\\\\serve.ps1\")",
+      "PowerShell(Start-Sleep -Seconds 2; try { $r = Invoke-WebRequest -Uri \"http://localhost:8765/verification-board.html\" -UseBasicParsing -TimeoutSec 5; \"HTTP $\\($r.StatusCode\\)  $\\($r.RawContentLength\\) bytes\" } catch { \"ERROR: $_\" })"
     ]
   }
 }
